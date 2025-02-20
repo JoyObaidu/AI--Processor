@@ -50,13 +50,15 @@ function App() {
 
 
   return (
-    <>
-    <h1 className="text-2xl font-bold mb-4">AI-Powered Text Processing</h1>
+    <div className="">
+    <h1 className="font-bold bg-green-300 p-4 text-center">AI-Powered Text Processing</h1>
+    <div className='flex-1 overflow-y-auto p-4 space-y-3 bg-white text-black shadow-lg'>
     <Input onSubmit={handleSend}/>
+    </div>
     <Output messages={messages}/>
     <SelecLanguage onChange={setSelectedLanguage}/>
     <Buttons onSummarize={handleSummarize} onTranslate={handleTranslate}/>
-    </>
+    </div>
   )
 }
 

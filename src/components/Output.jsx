@@ -9,7 +9,7 @@ const Output = ({ messages = [] }) => {
           <p key={index}>{message}</p>
         ))
       ) : (
-        <p></p>
+        <p className='bg-black text-white'>Output</p>
       )}
         </div>
       );

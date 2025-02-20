@@ -1,49 +1,44 @@
-const API_BASE = "https://developer.chrome.com/docs/ai"; 
-
-// Check Language
 export const detectLanguage = async (text) => {
+  if (!window.languageDetection) {
+    console.error("Language Detection API not supported.");
+    return "Unknown";
+  }
+
   try {
-    const response = await fetch(`${API_BASE}/language-detection`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text }),
-    });
-    const data = await response.json();
-    return data.language; 
+    const result = await window.languageDetection.detect(text);
+    return result.language; // Returns detected language code (e.g., "en", "es")
   } catch (error) {
-    console.error("Language Detection Error:", error);
-    return null;
+    console.error("Error detecting language:", error);
+    return "Unknown";
   }
 };
 
-//Summarize Text
 export const summarizeText = async (text) => {
+  if (!window.summarizer) {
+    console.error("Summarizer API not supported.");
+    return "Summarization not available";
+  }
+
   try {
-    const response = await fetch(`${API_BASE}/summarizer-api`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text }),
-    });
-    const data = await response.json();
-    return data.summary; 
+    const result = await window.summarizer.summarize(text);
+    return result.summary; // Returns summarized text
   } catch (error) {
-    console.error("Summarization Error:", error);
-    return null;
+    console.error("Error summarizing text:", error);
+    return "Summarization failed";
   }
 };
 
-//Translate Text
-export const translateText = async (text) => {
-    try {
-      const response = await fetch(`${API_BASE}/summarizer-api`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text }),
-      });
-      const data = await response.json();
-      return data.summary; 
-    } catch (error) {
-      console.error("Summarization Error:", error);
-      return null;
-    }
-  };
+export const translateText = async (text, targetLang) => {
+  if (!window.translator) {
+    console.error("Translator API not supported.");
+    return "Translation not available";
+  }
+
+  try {
+    const result = await window.translator.translate(text, targetLang);
+    return result.translation; // Returns translated text
+  } catch (error) {
+    console.error("Error translating text:", error);
+    return "Translation failed";
+  }
+};
